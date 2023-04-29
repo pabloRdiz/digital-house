@@ -1,8 +1,8 @@
-import { MovementsType } from '../../../models';
+import { ProductType } from '../../models';
 
 const API = 'https://6222994f666291106a29f999.mockapi.io/api/v1/products';
 
-export const getProductos = (): Promise<MovementsType[]> => {
+export const getProductos = (): Promise<ProductType[]> => {
   return fetch(API)
     .then(response => response.json())
     .then(response => response)

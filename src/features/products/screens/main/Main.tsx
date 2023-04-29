@@ -2,8 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Props } from './Main.types';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { FiltersEnum, useProducts } from '../../../hooks';
+import { FiltersEnum, useProducts } from '../../hooks';
 import { Greeting, Filters, Points, ProductsList } from '../../components';
+import { ProductType } from '../../models';
+import { MainNavigatorScreens } from '../../navigator/MainNavigator.types';
 
 export const Main = (props: Props) => {
   const inset = useSafeAreaInsets();
@@ -12,16 +14,25 @@ export const Main = (props: Props) => {
 
   const { navigation } = props;
 
+  const handleProductSelected = (productSelected: ProductType) => {
+    navigation.navigate(MainNavigatorScreens.PRODUCT, {
+      product: productSelected,
+    });
+  };
+
   const handleFilter = (filter: FiltersEnum) => {
     filterProducts(filter);
   };
 
   return (
-    <View style={[styles.container, { marginTop: inset.top }]}>
+    <View style={[styles.container, { paddingTop: inset.top }]}>
       <Greeting title="Bienvenido de vuelta!" user="Ruben Rodriguez" />
       <Text style={styles.textPoints}>TUS PUNTOS</Text>
       <Points points={totalPoints} />
-      <ProductsList products={products} />
+      <ProductsList
+        products={products}
+        onProductSelected={handleProductSelected}
+      />
       <View style={styles.filtersContainer}>
         <Filters filter={currentFilter} onFilter={handleFilter} />
       </View>

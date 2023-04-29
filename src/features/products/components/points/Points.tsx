@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { Card } from '../../../../components';
+import { formatNumber } from '../../../../utils/formatters';
 
 type Props = { points?: number };
 
@@ -9,9 +10,7 @@ export const Points = (props: Props) => {
   return (
     <Card>
       <Text style={styles.title}>Diciembre</Text>
-      <Text style={styles.total}>{`${new Intl.NumberFormat('es').format(
-        Number(points),
-      )} pts`}</Text>
+      <Text style={styles.total}>{`${formatNumber(points)} pts`}</Text>
     </Card>
   );
 };

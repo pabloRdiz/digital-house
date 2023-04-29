@@ -1,5 +1,5 @@
-export type MovementsType = {
-  createdAt: Date;
+export type ProductType = {
+  createdAt: string;
   product: string;
   points: number;
   image: string;

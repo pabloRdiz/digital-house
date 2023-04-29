@@ -1,31 +1,35 @@
 import React from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { formatLogDate } from '../../../../utils/formatters';
+import { ProductType } from '../../models';
 
 type ItemProps = {
-  id: string;
-  title: string;
-  createdAt: string;
-  points: number;
+  onProductSelected: (product: ProductType) => void;
+  product: ProductType;
 };
 
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+export const ProductItem = (props: ItemProps) => {
+  const { onProductSelected, product } = props;
 
-export const ProductItem = ({ id, title, createdAt, points }: ItemProps) => {
+  const handleOnPress = (productSelected: ProductType) => {
+    onProductSelected(productSelected);
+  };
+
   return (
-    <View key={id} style={styles.itemContainer}>
-      <Image
-        style={styles.itemImage}
-        source={{ uri: 'https://loremflickr.com/640/480/animals' }}
-      />
+    <View key={product.id} style={styles.itemContainer}>
+      <Image style={styles.itemImage} source={{ uri: product.image }} />
 
       <View style={styles.itemBody}>
-        <Text style={styles.itemTitle}>{title}</Text>
-        <Text style={styles.itemFooter}>{createdAt}</Text>
+        <Text style={styles.itemTitle}>{product.product}</Text>
+        <Text style={styles.itemFooter}>
+          {formatLogDate(product.createdAt)}
+        </Text>
       </View>
 
       <TouchableOpacity
-        onPress={() => console.log('press')}
+        onPress={() => handleOnPress(product)}
         style={styles.itemAction}>
-        <Text style={styles.actionText}>{points}</Text>
+        <Text style={styles.actionText}>{product.points}</Text>
         <Text style={styles.actionIcon}>{'>'}</Text>
       </TouchableOpacity>
     </View>

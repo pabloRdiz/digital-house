@@ -1,43 +1,38 @@
 import { useCallback, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
-import { getProductos } from '../../movements/services';
-import { MovementsType } from '../../models';
+import { getProductos } from '../../services';
+import { ProductType } from '../../models';
+import { FiltersEnum, UseProductsType } from './products.types';
 
-export enum FiltersEnum {
-  TODOS = 'Todos',
-  GANADOS = 'Ganados',
-  CANJEADOS = 'Canjeados',
-}
-
-const FAKE_FILTER = (filter: FiltersEnum, movement: MovementsType) => {
+const filterDelegate = (filter: FiltersEnum, product: ProductType) => {
   switch (filter) {
     case FiltersEnum.TODOS:
-      return movement;
+      return product;
     case FiltersEnum.GANADOS:
-      return movement.points <= 30000 ? movement : null;
+      return product.is_redemption ? product : null;
     case FiltersEnum.CANJEADOS:
-      return movement.points > 30000 ? movement : null;
+      return !product.is_redemption ? product : null;
     default:
-      return movement;
+      return product;
   }
 };
 
-const sumPoints = (movement: MovementsType[]) => {
-  return movement.reduce((acc, cur) => acc + cur.points, 0);
+const sumPoints = (product: ProductType[]) => {
+  return product.reduce((acc, cur) => acc + cur.points, 0);
 };
 
 const QUERY_KEY = '/accounts';
-const INITAL_DATA: MovementsType[] = [];
+const INITAL_DATA: ProductType[] = [];
 
-export const useProducts = () => {
+export const useProducts = (): UseProductsType => {
   const totalPointsRef = useRef<number>(0);
   const currentFilterRef = useRef<FiltersEnum>(FiltersEnum.TODOS);
-  const [products, setProducts] = useState<MovementsType[]>([]);
-  const { data } = useQuery<MovementsType[], any>(
+  const [products, setProducts] = useState<ProductType[]>([]);
+  const { data } = useQuery<ProductType[], any>(
     QUERY_KEY,
     () => getProductos(),
     {
-      onSuccess: (newData: MovementsType[]) => {
+      onSuccess: (newData: ProductType[]) => {
         totalPointsRef.current = sumPoints(newData);
         setProducts(newData);
       },
@@ -55,11 +50,11 @@ export const useProducts = () => {
         ? (currentFilterRef.current = FiltersEnum.GANADOS)
         : (currentFilterRef.current = FiltersEnum.TODOS);
 
-      const filteredMovements = data.filter((current: MovementsType) =>
-        FAKE_FILTER(filter, current),
+      const filteredProducts = data.filter((current: ProductType) =>
+        filterDelegate(filter, current),
       );
-      totalPointsRef.current = sumPoints(filteredMovements);
-      setProducts(filteredMovements);
+      totalPointsRef.current = sumPoints(filteredProducts);
+      setProducts(filteredProducts);
     },
     [data],
   );

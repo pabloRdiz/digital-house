@@ -1,12 +1,17 @@
 import React, { ReactNode } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 
 type Props = {
   children?: ReactNode;
+  containerStyle?: ViewStyle;
 };
 
 export const Card = (props: Props) => {
-  return <View style={styles.container}>{props.children}</View>;
+  const { children, containerStyle } = props;
+
+  return (
+    <View style={{ ...styles.container, ...containerStyle }}>{children}</View>
+  );
 };
 
 const styles = StyleSheet.create({

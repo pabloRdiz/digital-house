@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { FiltersEnum } from '../../../hooks';
+import { FiltersEnum } from '../../hooks';
 import { Button } from '../../../../components';
 
 const getNotAllFilters = () => {

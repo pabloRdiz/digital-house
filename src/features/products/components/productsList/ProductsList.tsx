@@ -1,9 +1,20 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { ProductItem } from './ProductItem';
-import { MovementsType } from '../../../models';
+import { ProductType } from '../../models';
 
-export const ProductsList = ({ products }: { products: MovementsType[] }) => {
+type Props = {
+  onProductSelected: (product: ProductType) => void;
+  products: ProductType[];
+};
+
+export const ProductsList = (props: Props) => {
+  const { onProductSelected, products } = props;
+
+  const handleOnProductSelected = (productSelected: ProductType) => {
+    onProductSelected(productSelected);
+  };
+
   return (
     <>
       <Text style={styles.text}>TUS MOVIMIENTOS</Text>
@@ -12,10 +23,8 @@ export const ProductsList = ({ products }: { products: MovementsType[] }) => {
           data={products}
           renderItem={({ item }) => (
             <ProductItem
-              id={item.id}
-              title={item.product}
-              createdAt={item.createdAt.toString()}
-              points={item.points}
+              product={item}
+              onProductSelected={handleOnProductSelected}
             />
           )}
           keyExtractor={item => item.id}

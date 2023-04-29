@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { MainNavigator } from './src/features/movements/navigator';
+import { MainNavigator } from './src/features/products/navigator';
 
 const queryClient = new QueryClient();
 

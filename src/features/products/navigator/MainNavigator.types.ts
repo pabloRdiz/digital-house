@@ -1,3 +1,5 @@
+import { ProductType } from '../models';
+
 export enum MainNavigatorScreens {
   MAIN = 'main',
   PRODUCT = 'product',
@@ -5,5 +7,5 @@ export enum MainNavigatorScreens {
 
 export type RouteStackParams = {
   [MainNavigatorScreens.MAIN]: undefined;
-  [MainNavigatorScreens.PRODUCT]: undefined;
+  [MainNavigatorScreens.PRODUCT]: { product: ProductType };
 };
