@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { FiltersEnum } from '../../../hooks';
+import { Button } from '../../../../components';
 
 const getNotAllFilters = () => {
   return Object.keys(FiltersEnum).filter(
@@ -11,45 +12,36 @@ const getNotAllFilters = () => {
 
 type Props = {
   onFilter: (filter: FiltersEnum) => void;
+  filter: FiltersEnum;
 };
 
-export const Filters = ({ onFilter }: Props) => {
-  const [filter, setFilter] = useState(FiltersEnum.TODOS);
-
-  const handleFilterPress = (newFilter: FiltersEnum) => {
-    onFilter(newFilter);
-    newFilter === FiltersEnum.TODOS
-      ? setFilter(FiltersEnum.GANADOS)
-      : setFilter(FiltersEnum.TODOS);
-  };
+export const Filters = (props: Props) => {
+  const { filter, onFilter } = props;
 
   const renderFilters = () => {
     if (filter === FiltersEnum.TODOS) {
       return (
-        <TouchableOpacity
-          onPress={() => handleFilterPress(FiltersEnum.TODOS)}
-          style={styles.button}>
-          <Text style={styles.text}>Todos</Text>
-        </TouchableOpacity>
+        <Button
+          onPress={() => onFilter(FiltersEnum.TODOS)}
+          size={'normal'}
+          text="Todos"
+        />
       );
     } else {
       const currentFilters = getNotAllFilters();
       return (
         <View style={styles.filtersContainer}>
-          {currentFilters.map(current => (
-            <TouchableOpacity
-              key={current}
-              onPress={() =>
-                handleFilterPress(
-                  FiltersEnum[current as keyof typeof FiltersEnum],
-                )
-              }
-              style={[styles.button, styles.smallButton]}>
-              <Text style={styles.text}>
-                {FiltersEnum[current as keyof typeof FiltersEnum]}
-              </Text>
-            </TouchableOpacity>
-          ))}
+          {currentFilters.map(current => {
+            const filterText = FiltersEnum[current as keyof typeof FiltersEnum];
+            return (
+              <Button
+                key={current}
+                onPress={() => onFilter(filterText)}
+                size={'small'}
+                text={filterText}
+              />
+            );
+          })}
         </View>
       );
     }
@@ -59,21 +51,5 @@ export const Filters = ({ onFilter }: Props) => {
 };
 
 const styles = StyleSheet.create({
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#334FFA',
-    borderRadius: 10,
-    paddingVertical: 14,
-  },
-  text: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontStyle: 'normal',
-    fontWeight: '800',
-    lineHeight: 22,
-  },
   filtersContainer: { flexDirection: 'row', justifyContent: 'space-between' },
-  smallButton: {
-    width: 170,
-  },
 });

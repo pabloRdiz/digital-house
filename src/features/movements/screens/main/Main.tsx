@@ -7,7 +7,8 @@ import { Greeting, Filters, Points, ProductsList } from '../../components';
 
 export const Main = (props: Props) => {
   const inset = useSafeAreaInsets();
-  const { products, filterProducts, totalPoints } = useProducts();
+  const { currentFilter, filterProducts, products, totalPoints } =
+    useProducts();
 
   const { navigation } = props;
 
@@ -22,7 +23,7 @@ export const Main = (props: Props) => {
       <Points points={totalPoints} />
       <ProductsList products={products} />
       <View style={styles.filtersContainer}>
-        <Filters onFilter={handleFilter} />
+        <Filters filter={currentFilter} onFilter={handleFilter} />
       </View>
     </View>
   );

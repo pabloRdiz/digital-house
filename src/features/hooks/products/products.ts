@@ -31,6 +31,7 @@ const INITAL_DATA: MovementsType[] = [];
 
 export const useProducts = () => {
   const totalPointsRef = useRef<number>(0);
+  const currentFilterRef = useRef<FiltersEnum>(FiltersEnum.TODOS);
   const [products, setProducts] = useState<MovementsType[]>([]);
   const { data } = useQuery<MovementsType[], any>(
     QUERY_KEY,
@@ -50,6 +51,10 @@ export const useProducts = () => {
         return;
       }
 
+      filter === FiltersEnum.TODOS
+        ? (currentFilterRef.current = FiltersEnum.GANADOS)
+        : (currentFilterRef.current = FiltersEnum.TODOS);
+
       const filteredMovements = data.filter((current: MovementsType) =>
         FAKE_FILTER(filter, current),
       );
@@ -59,5 +64,10 @@ export const useProducts = () => {
     [data],
   );
 
-  return { products, filterProducts, totalPoints: totalPointsRef.current };
+  return {
+    currentFilter: currentFilterRef.current,
+    filterProducts,
+    products,
+    totalPoints: totalPointsRef.current,
+  };
 };

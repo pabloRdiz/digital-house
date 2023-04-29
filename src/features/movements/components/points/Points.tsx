@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
-import { Card } from '../../../../components/card/Card';
+import { Card } from '../../../../components';
 
 type Props = { points?: number };
 
