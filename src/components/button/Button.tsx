@@ -18,6 +18,7 @@ export const Button = (props: Props) => {
   const { color = Color.primary, onPress, size, text } = props;
   return (
     <TouchableOpacity
+      testID="onPress-test"
       onPress={onPress}
       style={[
         styles.button,
