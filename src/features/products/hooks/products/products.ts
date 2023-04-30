@@ -18,7 +18,9 @@ const filterDelegate = (filter: FiltersEnum, product: ProductType) => {
 };
 
 const sumPoints = (product: ProductType[]) => {
-  return product.reduce((acc, cur) => acc + cur.points, 0);
+  return product.reduce((acc, cur) => {
+    return !cur.is_redemption ? acc + cur.points : acc;
+  }, 0);
 };
 
 const QUERY_KEY = '/accounts';
@@ -53,7 +55,7 @@ export const useProducts = (): UseProductsType => {
       const filteredProducts = data.filter((current: ProductType) =>
         filterDelegate(filter, current),
       );
-      totalPointsRef.current = sumPoints(filteredProducts);
+
       setProducts(filteredProducts);
     },
     [data],

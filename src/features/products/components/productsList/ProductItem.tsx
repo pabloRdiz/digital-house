@@ -8,6 +8,8 @@ type ItemProps = {
   product: ProductType;
 };
 
+const getSymbolsColors = (value: boolean) => (value ? '#FF0000' : '#00B833');
+
 export const ProductItem = (props: ItemProps) => {
   const { onProductSelected, product } = props;
 
@@ -29,6 +31,14 @@ export const ProductItem = (props: ItemProps) => {
       <TouchableOpacity
         onPress={() => handleOnPress(product)}
         style={styles.itemAction}>
+        <Text
+          style={[
+            styles.actionText,
+            styles.actionSymbol,
+            { color: getSymbolsColors(product.is_redemption) },
+          ]}>
+          {product.is_redemption ? '-' : '+'}
+        </Text>
         <Text style={styles.actionText}>{product.points}</Text>
         <Text style={styles.actionIcon}>{'>'}</Text>
       </TouchableOpacity>
@@ -66,14 +76,19 @@ const styles = StyleSheet.create({
   itemAction: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-
     alignItems: 'center',
   },
   actionText: {
-    fontSize: 12,
-    fontWeight: '400',
+    fontSize: 16,
+    fontWeight: '800',
     lineHeight: 16,
     marginRight: 12,
+  },
+  actionSymbol: {
+    marginRight: 0,
+  },
+  actionTextPositive: {
+    color: '#00B833',
   },
   actionIcon: {
     fontSize: 14,
