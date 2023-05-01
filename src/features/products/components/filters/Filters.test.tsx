@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
+import { render, fireEvent } from '../../../test/test-utils';
+
 import { Filters } from './Filters';
 import { FiltersEnum } from '../../hooks';
 
@@ -8,6 +9,7 @@ describe('Filters component verification ', () => {
     const onFilterMock = jest.fn();
     const { getByText } = render(
       <Filters filter={FiltersEnum.TODOS} onFilter={onFilterMock} />,
+      undefined,
     );
     const todosButton = getByText('Todos');
     expect(todosButton).toBeDefined();
@@ -17,6 +19,7 @@ describe('Filters component verification ', () => {
     const onFilterMock = jest.fn();
     const { getByText } = render(
       <Filters filter={FiltersEnum.TODOS} onFilter={onFilterMock} />,
+      undefined,
     );
     const activosButton = getByText(FiltersEnum.TODOS);
     expect(activosButton).toBeDefined();
@@ -28,6 +31,7 @@ describe('Filters component verification ', () => {
     const onFilterMock = jest.fn();
     const { getByText } = render(
       <Filters filter={FiltersEnum.CANJEADOS} onFilter={onFilterMock} />,
+      undefined,
     );
     const inactivosButton = getByText(FiltersEnum.CANJEADOS);
     fireEvent.press(inactivosButton);

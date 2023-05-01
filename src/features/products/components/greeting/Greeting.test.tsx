@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { render } from '../../../test/test-utils';
 import { Greeting } from './Greeting';
 
 describe('Greeting component verification', () => {
@@ -8,7 +8,10 @@ describe('Greeting component verification', () => {
   });
 
   test('02 - renders the correct text', () => {
-    const { getByText } = render(<Greeting title="Hello" user="John" />);
+    const { getByText } = render(
+      <Greeting title="Hello" user="John" />,
+      undefined,
+    );
     expect(getByText('Hello')).toBeDefined();
     expect(getByText('John')).toBeDefined();
   });
