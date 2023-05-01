@@ -30,7 +30,8 @@ export const ProductItem = (props: ItemProps) => {
 
       <TouchableOpacity
         onPress={() => handleOnPress(product)}
-        style={styles.itemAction}>
+        style={styles.itemAction}
+        testID="product-item">
         <Text
           style={[
             styles.actionText,

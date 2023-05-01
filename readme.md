@@ -28,5 +28,5 @@ Follow the Setting up  [here](https://reactnative.dev/docs/environment-setup) .
 
 
 
-> Code coverage: **82.56** %
+> Code coverage: **88.07** %
 
