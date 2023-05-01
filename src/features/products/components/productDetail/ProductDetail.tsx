@@ -22,7 +22,7 @@ export const ProductDetail = ({ product }: Props) => {
       </Card>
       <View style={styles.detailsContainer}>
         <Text style={styles.textDetails}>Detalles del producto:</Text>
-        <Text style={styles.textDate}>{`Comprado el: ${formatLogDate(
+        <Text style={styles.textDate}>{`Comprado el ${formatLogDate(
           product.createdAt,
         )}`}</Text>
         <Text style={styles.tiltePoints}>Con esta compra acumulaste:</Text>

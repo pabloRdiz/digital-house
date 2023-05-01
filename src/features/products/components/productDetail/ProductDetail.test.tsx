@@ -28,7 +28,7 @@ describe('ProductDetail component verification', () => {
       undefined,
     );
     const title = getByText('Detalles del producto:');
-    const date = getByText(' Comprado el: 28 de abril de 2022');
+    const date = getByText(' Comprado el 28 de abril de 2022');
     const pointsTitle = getByText('Con esta compra acumulaste:');
     const points = getByText('100 puntos');
     expect(title).toBeDefined();
