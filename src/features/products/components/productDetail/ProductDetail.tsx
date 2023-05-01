@@ -13,7 +13,11 @@ export const ProductDetail = ({ product }: Props) => {
     <>
       <Card containerStyle={styles.conatinarCard}>
         <View style={styles.imageContainer}>
-          <Image style={styles.image} source={{ uri: product.image }} />
+          <Image
+            testID="product-image-test"
+            style={styles.image}
+            source={{ uri: product.image }}
+          />
         </View>
       </Card>
       <View style={styles.detailsContainer}>
