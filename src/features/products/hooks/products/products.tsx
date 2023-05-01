@@ -9,9 +9,9 @@ const filterDelegate = (filter: FiltersEnum, product: ProductType) => {
     case FiltersEnum.TODOS:
       return product;
     case FiltersEnum.GANADOS:
-      return product.is_redemption ? product : null;
-    case FiltersEnum.CANJEADOS:
       return !product.is_redemption ? product : null;
+    case FiltersEnum.CANJEADOS:
+      return product.is_redemption ? product : null;
     default:
       return product;
   }
